@@ -31,16 +31,16 @@ const Verify = () => {
   };
 
   return (
-    <div className="w-50 h-55v d-flex flex-column justify-content-evenly align-items-center p-4 text-center m-auto bg-success marginTop-10">
+    <div className="w-25 h-55v d-flex flex-column justify-content-evenly align-items-center p-4 text-center m-auto bg-success marginTop-10">
       <div>
         <h1 className="fw-bolder logo-text">Vidyayan</h1>
         <p className="logo-color">Let's gain together</p>
       </div>
 
-      <h3 className="">
+      <h5 className="">
         Please Enter OTP sent to you mobile XXXXXXX{mobile.toString().slice(-3)}{" "}
         <span className="logo-color">EDIT</span>
-      </h3>
+      </h5>
       <div className="w-100 d-flex justify-content-center">
         <OtpInput
           value={code}
@@ -66,7 +66,7 @@ const Verify = () => {
         />
       </div>
       <h3 className="logo-color">Resend OTP</h3>
-      <div className="w-50  btn btn-primary btn-lg" onClick={onClickHanler}>
+      <div className="w-75  btn btn-primary btn-lg" onClick={onClickHanler}>
         Verify and Proceed
       </div>
     </div>

@@ -46,17 +46,8 @@ input[type="number"] {
 
 /* Verify  Page*/
 
-.partitioned {
-  padding-left: 15px;
-  letter-spacing: 90px;
-  border: 0;
-  background-image: linear-gradient(
-    to left,
-    black 70%,
-    rgba(255, 255, 255, 0) 0%
-  );
-  background-position: bottom;
-  background-size: 100px 1px;
-  background-repeat: repeat-x;
-  background-position-x: 50px;
+/* register Page */
+
+.h-60v {
+  height: 60vh;
 }
