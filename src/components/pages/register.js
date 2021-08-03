@@ -17,6 +17,41 @@ const Register = () => {
   const [message, setMessage] = useState("");
   const { mobile } = useParams();
 
+  const registerUser = async (role) => {
+    const userData = {
+      mobile,
+      firstName,
+      lastName,
+      fatherFirstName,
+      fatherLastName,
+      gender,
+      dateOfBirth,
+      email,
+      address,
+      city,
+      pincode,
+      role,
+    };
+    try {
+      const res = await Axios.post(`${API}/registerUser`, userData);
+      if (res.status === 201) {
+        const { token, user } = res.data;
+        localStorage.setItem("token", token);
+        localStorage.setItem("user", JSON.stringify(user));
+        if (role === "student") {
+          return <Redirect to={`/registerStudent/${user._id}`} />;
+        }
+        if (role === "teacher") {
+          return <Redirect to={`/registerTutor/${user._id}`} />;
+        }
+      } else {
+        setMessage(res.data.message);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <form className="w-50 h-60v d-flex flex-column  justify-content-evenly  p-4 text-center m-auto bg-success marginTop-10">
       <div className="row justify-content-around ">
@@ -155,12 +190,18 @@ const Register = () => {
       </div>
       <div className="row justify-content-around">
         <div className="col-sm-6">
-          <button className="btn btn-sm btn-primary p-2" onClick={() => {}}>
+          <button
+            className="btn btn-sm btn-primary p-2"
+            onClick={() => registerUser("student")}
+          >
             Register As Student
           </button>
         </div>
         <div className="col-sm-6">
-          <button className="btn btn-sm btn-primary p-2" onClick={() => {}}>
+          <button
+            className="btn btn-sm btn-primary p-2"
+            onClick={() => registerUser("teacher")}
+          >
             Register As Tutor
           </button>
         </div>

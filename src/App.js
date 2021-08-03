@@ -14,6 +14,8 @@ function App() {
           <Route path="/signin" component={Signin} />
           <Route path="/verify/:mobile" component={Verify} />
           <Route path="/register/:mobile" component={Register} />
+          {/* <Route path="/registerStudent/:userId" component/>
+          <Route path="/registerTutor/:userId" component/> */}
         </Switch>
       </Router>
     </div>
