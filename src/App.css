@@ -1,38 +1,62 @@
-.App {
-  text-align: center;
+/* SignIn Page */
+.bg-success {
+  background-color: #5ef2b4 !important;
+}
+.logo-text {
+  font-size: 36px;
+  color: #ff6109;
+  margin: 0;
+  font-weight: 600;
+}
+.logo-color {
+  color: #ff6109;
+}
+.w-fc {
+  width: fit-content;
+}
+.btn-primary {
+  background-color: #1921df;
+}
+.h-55v {
+  height: 55vh;
+}
+.outline-none {
+  outline: none;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.border-bottom-3 {
+  border-bottom: 2px solid black !important;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.marginTop-10 {
+  margin-top: 10% !important;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
 
-.App-link {
-  color: #61dafb;
+/* Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+/* Verify  Page*/
+
+.partitioned {
+  padding-left: 15px;
+  letter-spacing: 90px;
+  border: 0;
+  background-image: linear-gradient(
+    to left,
+    black 70%,
+    rgba(255, 255, 255, 0) 0%
+  );
+  background-position: bottom;
+  background-size: 100px 1px;
+  background-repeat: repeat-x;
+  background-position-x: 50px;
 }
