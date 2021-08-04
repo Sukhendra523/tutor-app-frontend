@@ -7,11 +7,14 @@ import { API } from "../../urlConfig";
 const Signin = () => {
   const [mobile, setMobile] = useState("");
   const [message, setMessage] = useState("");
+  const [redirectToVerify, setRedirectToVerify] = useState(false);
   const onClickHanler = async () => {
     try {
-      const res = await Axios.post(`${API}/sendOTP`, mobile);
-      if (res.status === 200) {
-        return <Redirect to={`/verify/:${mobile}`} />;
+      console.log("Mobile :::", mobile);
+      const res = await Axios.post(`${API}/sendOTP`, { mobile: mobile });
+      console.log("res.status:::", res.status, res.data.success);
+      if (res.data.success) {
+        setRedirectToVerify(true);
       } else {
         setMessage(res.data.message);
       }
@@ -19,6 +22,10 @@ const Signin = () => {
       console.log(error);
     }
   };
+
+  if (redirectToVerify) {
+    return <Redirect to={`/verify/${mobile}`} />;
+  }
 
   return (
     <div className="w-25 h-55v d-flex flex-column justify-content-evenly align-items-center p-4 text-center m-auto bg-success marginTop-10">

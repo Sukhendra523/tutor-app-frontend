@@ -15,11 +15,13 @@ const Register = () => {
   const [city, setCity] = useState();
   const [pincode, setPincode] = useState();
   const [message, setMessage] = useState("");
+  const [redirectTo, setRedirectTo] = useState(false);
+
   const { mobile } = useParams();
 
-  const registerUser = async (role) => {
+  const registerUser = async (event, role) => {
     const userData = {
-      mobile,
+      mobile: parseInt(mobile),
       firstName,
       lastName,
       fatherFirstName,
@@ -34,16 +36,13 @@ const Register = () => {
     };
     try {
       const res = await Axios.post(`${API}/registerUser`, userData);
-      if (res.status === 201) {
+      console.log("res.status:::", res.status, redirectTo, res.data.success);
+      if (res.data.success) {
         const { token, user } = res.data;
         localStorage.setItem("token", token);
         localStorage.setItem("user", JSON.stringify(user));
-        if (role === "student") {
-          return <Redirect to={`/registerStudent/${user._id}`} />;
-        }
-        if (role === "teacher") {
-          return <Redirect to={`/registerTutor/${user._id}`} />;
-        }
+        setRedirectTo(true);
+        console.log("RedirectTO", redirectTo);
       } else {
         setMessage(res.data.message);
       }
@@ -51,9 +50,23 @@ const Register = () => {
       console.log(error);
     }
   };
+  console.log("Redirect", redirectTo);
+
+  if (redirectTo) {
+    const user = localStorage.getItem("user");
+    const { _id, role } = JSON.parse(user);
+    console.log("user", JSON.parse(user));
+    console.log("role ", role, role === "student");
+    if (role === "student") {
+      return <Redirect to={`/registerStudent/${_id}`} />;
+    }
+    if (role === "tutor") {
+      return <Redirect to={`/registerTutor/${_id}`} />;
+    }
+  }
 
   return (
-    <form className="w-50 h-60v d-flex flex-column  justify-content-evenly  p-4 text-center m-auto bg-success marginTop-10">
+    <div className="w-50 h-60v d-flex flex-column  justify-content-evenly  p-4 text-center m-auto bg-success marginTop-10">
       <div className="row justify-content-around ">
         <div className="col-sm-6">
           <input
@@ -114,7 +127,9 @@ const Register = () => {
             <option value="Gender" hidden>
               Gender
             </option>
-            <option value="Male">Male</option>
+            <option value="Male" onChange>
+              Male
+            </option>
             <option value="Female">Female</option>
             <option value="Other">Other</option>
           </select>
@@ -192,7 +207,7 @@ const Register = () => {
         <div className="col-sm-6">
           <button
             className="btn btn-sm btn-primary p-2"
-            onClick={() => registerUser("student")}
+            onClick={(event) => registerUser(event, "student")}
           >
             Register As Student
           </button>
@@ -200,13 +215,13 @@ const Register = () => {
         <div className="col-sm-6">
           <button
             className="btn btn-sm btn-primary p-2"
-            onClick={() => registerUser("teacher")}
+            onClick={(event) => registerUser(event, "teacher")}
           >
             Register As Tutor
           </button>
         </div>
       </div>
-    </form>
+    </div>
   );
 };
 

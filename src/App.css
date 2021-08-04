@@ -46,8 +46,16 @@ input[type="number"] {
 
 /* Verify  Page*/
 
-/* register Page */
+/* register User Page */
 
 .h-60v {
   height: 60vh;
+}
+
+/* register Student */
+.h-75v {
+  height: 75vh;
+}
+.marginTop-6 {
+  margin-top: 6% !important;
 }

@@ -9,7 +9,8 @@ const Verify = () => {
   const [code, setCode] = useState("");
   const [message, setMessage] = useState("");
   const { mobile } = useParams();
-
+  const [redirectToDashBoard, setRedirectToDashBoard] = useState(false);
+  const [redirectToRegisterUser, setRedirectToRegisterUser] = useState(false);
   const onClickHanler = async () => {
     try {
       const res = await Axios.post(`${API}/signin`, { mobile, code });
@@ -18,9 +19,9 @@ const Verify = () => {
         if (token) {
           localStorage.setItem("token", token);
           localStorage.setItem("user", JSON.stringify(user));
-          return <Redirect to="/" />;
+          setRedirectToDashBoard(true);
         } else {
-          return <Redirect to={`/register/:${mobile}`} />;
+          setRedirectToRegisterUser(true);
         }
       } else {
         setMessage(res.data.message);
@@ -29,7 +30,22 @@ const Verify = () => {
       console.log(error);
     }
   };
-
+  if (redirectToDashBoard) {
+    const user = localStorage.getItem("user");
+    const { _id, role } = JSON.parse(user);
+    if (role === "student") {
+      return <Redirect to={`/s/${_id}`} />;
+    }
+    if (role === "tutor") {
+      return <Redirect to={`/t/${_id}`} />;
+    }
+    if (role === "admin") {
+      return <Redirect to={`/a/${_id}`} />;
+    }
+  }
+  if (redirectToRegisterUser) {
+    return <Redirect to={`/register/${mobile}`} />;
+  }
   return (
     <div className="w-25 h-55v d-flex flex-column justify-content-evenly align-items-center p-4 text-center m-auto bg-success marginTop-10">
       <div>
