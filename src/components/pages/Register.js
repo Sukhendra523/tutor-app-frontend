@@ -1,6 +1,6 @@
 import Axios from "axios";
 import React, { useState } from "react";
-import { Redirect, useParams } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 import { API } from "../../urlConfig";
 
 const Register = () => {
@@ -17,7 +17,7 @@ const Register = () => {
   const [message, setMessage] = useState("");
   const [redirectTo, setRedirectTo] = useState(false);
 
-  const { mobile } = useParams();
+  const mobile = localStorage.getItem("token");
 
   const registerUser = async (event, role) => {
     const userData = {
@@ -35,7 +35,12 @@ const Register = () => {
       role,
     };
     try {
-      const res = await Axios.post(`${API}/registerUser`, userData);
+      const mobileAuthToken = localStorage.getItem("mobileAuthToken");
+      const res = await Axios.post(`${API}/registerUser`, userData, {
+        headers: {
+          Authorization: `Bearer ${mobileAuthToken}`,
+        },
+      });
       console.log("res.status:::", res.status, redirectTo, res.data.success);
       if (res.data.success) {
         const { token, user } = res.data;

@@ -98,8 +98,14 @@ const RegisterTutor = () => {
       occupation,
       charges: { from: chargesFrom, to: chargesTo },
     };
+
     try {
-      const res = await Axios.post(`${API}/registerTutor`, Tutor);
+      const token = localStorage.getItem("token");
+      const res = await Axios.post(`${API}/registerTutor`, Tutor, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       if (res.status === 201) {
         localStorage.setItem("Tutor", JSON.stringify(res.data));
         setRedirectToDashBoard(true);
@@ -113,7 +119,7 @@ const RegisterTutor = () => {
   if (redirectToDashBoard) {
     const user = localStorage.getItem("user");
     const { _id, role } = JSON.parse(user);
-    if (role === "Tutor") {
+    if (role === "student") {
       return <Redirect to={`/s/${_id}`} />;
     }
     if (role === "tutor") {

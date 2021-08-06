@@ -33,8 +33,14 @@ const RegisterStudent = () => {
       boardId,
       streamId,
     };
+
     try {
-      const res = await Axios.post(`${API}/registerStudent`, student);
+      const token = localStorage.getItem("token");
+      const res = await Axios.post(`${API}/registerStudent`, student, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       if (res.status === 201) {
         localStorage.setItem("student", JSON.stringify(res.data));
         setRedirectToDashBoard(true);

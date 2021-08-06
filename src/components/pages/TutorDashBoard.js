@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { Redirect } from "react-router-dom";
 import { API } from "../../urlConfig";
 import Layout from "../layout";
 
@@ -12,33 +13,60 @@ const TutorDashBoard = () => {
     const userData = JSON.parse(localStorage.getItem("user"));
     setUser(userData);
     const getTutor = async () => {
-      const { data } = await axios.get(`${API}/getTutor/${userData._id}`);
+      const token = localStorage.getItem("token");
+
+      const { data } = await axios.get(`${API}/getTutor/${userData._id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       if (data) {
         setTutor(data);
       }
     };
 
     getTutor();
-  }, [, message]);
+  }, [message]);
 
   const acceptRequest = async (studentId) => {
-    const res = await axios.post(`${API}/acceptRequest`, {
-      studentId,
-      tutorId: tutor._id,
-    });
+    const token = localStorage.getItem("token");
+
+    const res = await axios.post(
+      `${API}/acceptRequest`,
+      {
+        studentId,
+        tutorId: tutor._id,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
     if (res.status === 200) {
       setMessage(res.data.message);
     }
   };
   const deleteRequest = async (studentId) => {
-    const res = await axios.post(`${API}/deleteRequest`, {
-      studentId,
-      tutorId: tutor._id,
-    });
+    const token = localStorage.getItem("token");
+
+    const res = await axios.post(
+      `${API}/deleteRequest`,
+      {
+        studentId,
+        tutorId: tutor._id,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
     if (res.status === 200) {
       setMessage(res.data.message);
     }
   };
+
   return (
     <Layout>
       <div>

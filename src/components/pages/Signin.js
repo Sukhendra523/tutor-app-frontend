@@ -5,12 +5,12 @@ import { Link, Redirect } from "react-router-dom";
 import { API } from "../../urlConfig";
 
 const Signin = () => {
-  const [mobile, setMobile] = useState("");
+  const [mobile, setMobile] = useState(localStorage.getItem("token") || "");
   const [message, setMessage] = useState("");
   const [redirectToVerify, setRedirectToVerify] = useState(false);
   const onClickHanler = async () => {
     try {
-      console.log("Mobile :::", mobile);
+      localStorage.setItem("mobile", mobile);
       const res = await Axios.post(`${API}/sendOTP`, { mobile: mobile });
       console.log("res.status:::", res.status, res.data.success);
       if (res.data.success) {
@@ -24,7 +24,21 @@ const Signin = () => {
   };
 
   if (redirectToVerify) {
-    return <Redirect to={`/verify/${mobile}`} />;
+    return <Redirect to={`/verify`} />;
+  }
+
+  if (localStorage.getItem("token")) {
+    const user = localStorage.getItem("user");
+    const { _id, role } = JSON.parse(user);
+    if (role === "student") {
+      return <Redirect to={`/s/${_id}`} />;
+    }
+    if (role === "tutor") {
+      return <Redirect to={`/t/${_id}`} />;
+    }
+    if (role === "admin") {
+      return <Redirect to={`/a/${_id}`} />;
+    }
   }
 
   return (

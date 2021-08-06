@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+
 import { API } from "../../urlConfig";
 import Layout from "../layout";
 
@@ -7,31 +8,52 @@ const StudentDashboard = () => {
   const [tutors, setTutors] = useState("");
   const [student, setStudent] = useState("");
   const [message, setMessage] = useState("");
-  const [user, setUser] = useState("");
+
   useEffect(() => {
     const userData = JSON.parse(localStorage.getItem("user"));
-    setUser(userData);
+
     const getStudent = async () => {
-      const { data } = await axios.get(`${API}/getStudent/${userData._id}`);
+      const token = localStorage.getItem("token");
+      const { data } = await axios.get(`${API}/getStudent/${userData._id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       if (data) {
         setStudent(data);
       }
     };
     const getAllTutor = async () => {
-      const { data } = await axios.get(`${API}/getAllTutor`);
+      const token = localStorage.getItem("token");
+
+      const { data } = await axios.get(`${API}/getAllTutor`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       if (data) {
         setTutors(data);
       }
     };
     getStudent();
     getAllTutor();
-  }, [, message]);
+  }, [message]);
 
   const sendRequest = async (tutorId) => {
-    const res = await axios.post(`${API}/sendRequest`, {
-      studentId: student._id,
-      tutorId,
-    });
+    const token = localStorage.getItem("token");
+
+    const res = await axios.post(
+      `${API}/sendRequest`,
+      {
+        studentId: student._id,
+        tutorId,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
     if (res.status === 200) {
       setMessage(res.data.message);
     }

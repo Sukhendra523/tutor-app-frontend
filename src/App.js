@@ -8,20 +8,29 @@ import RegisterStudent from "./components/pages/RegisterStudent";
 import RegisterTutor from "./components/pages/RegisterTutor";
 import StudentDashboard from "./components/pages/StudentDashboard";
 import TutorDashBoard from "./components/pages/TutorDashBoard";
+import PrivateRoute from "./components/HOC/PrivateRoute";
+import RegisterPrivateRoute from "./components/HOC/RegisterPrivateRoute";
+import StudentRoute from "./components/HOC/StudentRoute";
+import TutorRoute from "./components/HOC/TutorRoute";
 
 function App() {
   return (
     <div className="App">
       <Router>
         <Switch>
-          {/* <PrivateRoute path="/" exact component={MeetingsList} /> */}
-          <Route path="/signin" component={Signin} />
-          <Route path="/verify/:mobile" component={Verify} />
-          <Route path="/register/:mobile" component={Register} />
-          <Route path="/registerStudent/:userId" component={RegisterStudent} />
-          <Route path="/registerTutor/:userId" component={RegisterTutor} />
-          <Route path="/s/:userId" component={StudentDashboard} />
-          <Route path="/t/:userId" component={TutorDashBoard} />
+          <Route path="/" exact component={Signin} />
+          <Route path="/verify" component={Verify} />
+          <RegisterPrivateRoute path="/register" component={Register} />
+          <PrivateRoute
+            path="/registerStudent/:userId"
+            component={RegisterStudent}
+          />
+          <PrivateRoute
+            path="/registerTutor/:userId"
+            component={RegisterTutor}
+          />
+          <StudentRoute path="/s/:userId" component={StudentDashboard} />
+          <TutorRoute path="/t/:userId" component={TutorDashBoard} />
         </Switch>
       </Router>
     </div>

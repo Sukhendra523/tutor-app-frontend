@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Axios from "axios";
-import { Link, Redirect, useParams } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import OtpInput from "react-otp-input";
 
 import { API } from "../../urlConfig";
@@ -8,19 +8,22 @@ import { API } from "../../urlConfig";
 const Verify = () => {
   const [code, setCode] = useState("");
   const [message, setMessage] = useState("");
-  const { mobile } = useParams();
+  const mobile = localStorage.getItem("mobile");
   const [redirectToDashBoard, setRedirectToDashBoard] = useState(false);
   const [redirectToRegisterUser, setRedirectToRegisterUser] = useState(false);
+
   const onClickHanler = async () => {
     try {
       const res = await Axios.post(`${API}/signin`, { mobile, code });
       if (res.status === 200) {
-        const { token, user } = res.data;
+        const { token, user, mobileAuthToken } = res.data;
         if (token) {
           localStorage.setItem("token", token);
           localStorage.setItem("user", JSON.stringify(user));
           setRedirectToDashBoard(true);
-        } else {
+        }
+        if (mobileAuthToken) {
+          localStorage.setItem("mobileAuthToken", mobileAuthToken);
           setRedirectToRegisterUser(true);
         }
       } else {
@@ -44,8 +47,23 @@ const Verify = () => {
     }
   }
   if (redirectToRegisterUser) {
-    return <Redirect to={`/register/${mobile}`} />;
+    return <Redirect to={`/register`} />;
   }
+
+  if (localStorage.getItem("token")) {
+    const user = localStorage.getItem("user");
+    const { _id, role } = JSON.parse(user);
+    if (role === "Tutor") {
+      return <Redirect to={`/s/${_id}`} />;
+    }
+    if (role === "tutor") {
+      return <Redirect to={`/t/${_id}`} />;
+    }
+    if (role === "admin") {
+      return <Redirect to={`/a/${_id}`} />;
+    }
+  }
+
   return (
     <div className="w-25 h-55v d-flex flex-column justify-content-evenly align-items-center p-4 text-center m-auto bg-success marginTop-10">
       <div>
@@ -55,7 +73,9 @@ const Verify = () => {
 
       <h5 className="">
         Please Enter OTP sent to you mobile XXXXXXX{mobile.toString().slice(-3)}{" "}
-        <span className="logo-color">EDIT</span>
+        <Link to="/">
+          <span className="logo-color">EDIT</span>
+        </Link>
       </h5>
       <div className="w-100 d-flex justify-content-center">
         <OtpInput
