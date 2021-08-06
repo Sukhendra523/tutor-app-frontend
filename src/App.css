@@ -59,3 +59,38 @@ input[type="number"] {
 .marginTop-6 {
   margin-top: 6% !important;
 }
+
+/* Student Dashboard */
+.top-56 {
+  top: 56px;
+}
+.bg-logo-color {
+  background: #ec7b12;
+}
+.bg-logo-color-2 {
+  background: #e9922d;
+}
+
+/* sidebar */
+.sidebar-link {
+  color: black;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 28px;
+}
+
+.bg-gray {
+  background-color: gray;
+}
+.bg-aliceblue {
+  background-color: aliceblue;
+}
+
+.right-container {
+  width: 84%;
+  position: absolute;
+  right: 0;
+}
+.border-b-o {
+  border-bottom: 5px solid #ec7b12;
+}

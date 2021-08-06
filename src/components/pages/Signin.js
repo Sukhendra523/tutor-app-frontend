@@ -38,7 +38,7 @@ const Signin = () => {
       <div className="w-100">
         <input
           type="number"
-          className="w-75 border-0 border-bottom-3 border-dark outline-none bg-transparent"
+          className="w-75 text-center border-0 border-bottom-3 border-dark outline-none bg-transparent"
           value={mobile}
           onChange={(event) => setMobile(event.target.value)}
           autoFocus

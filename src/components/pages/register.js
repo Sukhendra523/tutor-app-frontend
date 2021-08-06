@@ -4,16 +4,16 @@ import { Redirect, useParams } from "react-router-dom";
 import { API } from "../../urlConfig";
 
 const Register = () => {
-  const [firstName, setFirstName] = useState();
-  const [lastName, setLastName] = useState();
-  const [fatherFirstName, setFatherFirstName] = useState();
-  const [fatherLastName, setFatherLastName] = useState();
-  const [gender, setGender] = useState();
-  const [dateOfBirth, setDateOfBirth] = useState();
-  const [email, setEmail] = useState();
-  const [address, setAddress] = useState();
-  const [city, setCity] = useState();
-  const [pincode, setPincode] = useState();
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [fatherFirstName, setFatherFirstName] = useState("");
+  const [fatherLastName, setFatherLastName] = useState("");
+  const [gender, setGender] = useState("Male");
+  const [dateOfBirth, setDateOfBirth] = useState("");
+  const [email, setEmail] = useState("");
+  const [address, setAddress] = useState("");
+  const [city, setCity] = useState("");
+  const [pincode, setPincode] = useState("");
   const [message, setMessage] = useState("");
   const [redirectTo, setRedirectTo] = useState(false);
 
@@ -124,7 +124,7 @@ const Register = () => {
               setGender(e.target.value);
             }}
           >
-            <option value="Gender" hidden>
+            <option value="Gender" hidden={true}>
               Gender
             </option>
             <option value="Male" onChange>
@@ -215,7 +215,7 @@ const Register = () => {
         <div className="col-sm-6">
           <button
             className="btn btn-sm btn-primary p-2"
-            onClick={(event) => registerUser(event, "teacher")}
+            onClick={(event) => registerUser(event, "tutor")}
           >
             Register As Tutor
           </button>

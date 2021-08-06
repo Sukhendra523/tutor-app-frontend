@@ -8,11 +8,11 @@ const RegisterStudent = () => {
   const [boards, setBoards] = useState([]);
   const [streams, setStreams] = useState([]);
   const [subject, setSubjects] = useState([]);
-  const [classId, setClassId] = useState();
-  const [boardId, setBoardId] = useState();
-  const [streamId, setStreamId] = useState();
+  const [classId, setClassId] = useState("");
+  const [boardId, setBoardId] = useState("");
+  const [streamId, setStreamId] = useState("");
   const [message, setMessage] = useState("");
-  const { userId } = useParams();
+  const { userId } = useParams("");
   const [redirectToDashBoard, setRedirectToDashBoard] = useState(false);
 
   useEffect(async () => {

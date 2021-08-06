@@ -6,21 +6,19 @@ import { API } from "../../urlConfig";
 const RegisterTutor = () => {
   const [classes, setClasses] = useState([]);
   const [boards, setBoards] = useState([]);
-  const [streams, setStreams] = useState([]);
   const [subjects, setSubjects] = useState([]);
-  const [qualification, setQualification] = useState();
-  const [status, setStatus] = useState();
-  const [college, setCollege] = useState();
-  const [modeOfTeaching, setModeOfTeaching] = useState();
-  const [language, setLanguage] = useState();
-  const [classId, setClassId] = useState();
-  const [boardId, setBoardId] = useState();
-  const [streamId, setStreamId] = useState();
-  const [subjectId, setSubjectId] = useState();
-  const [timing, setTiming] = useState();
-  const [occupation, setOccupation] = useState();
-  const [chargesFrom, setChargesFrom] = useState();
-  const [chargesTo, setChargesTo] = useState();
+  const [qualification, setQualification] = useState("");
+  const [status, setStatus] = useState("");
+  const [college, setCollege] = useState("");
+  const [modeOfTeaching, setModeOfTeaching] = useState("");
+  const [language, setLanguage] = useState("");
+  const [classId, setClassId] = useState("");
+  const [boardId, setBoardId] = useState("");
+  const [subjectId, setSubjectId] = useState("");
+  const [timing, setTiming] = useState("");
+  const [occupation, setOccupation] = useState("");
+  const [chargesFrom, setChargesFrom] = useState("");
+  const [chargesTo, setChargesTo] = useState("");
 
   const [message, setMessage] = useState("");
   const { userId } = useParams();
@@ -81,8 +79,6 @@ const RegisterTutor = () => {
     data && setClasses(data);
     var { data } = await Axios.get(`${API}/boards`);
     data && setBoards(data);
-    var { data } = await Axios.get(`${API}/streams`);
-    data && setStreams(data);
     var { data } = await Axios.get(`${API}/subjects`);
     data && setSubjects(data);
   }, []);
@@ -97,7 +93,6 @@ const RegisterTutor = () => {
       userId,
       classId,
       boardId,
-      streamId,
       subjectId,
       timing,
       occupation,
@@ -139,6 +134,9 @@ const RegisterTutor = () => {
               setQualification(e.target.value);
             }}
           >
+            <option value="" selected disabled hidden>
+              Highest Qualification
+            </option>
             {qualifications.map((qualification) => (
               <option value={qualification}>{qualification}</option>
             ))}
@@ -152,6 +150,9 @@ const RegisterTutor = () => {
               setStatus(e.target.value);
             }}
           >
+            <option value="" selected disabled hidden>
+              Status
+            </option>
             <option value="Completed">Completed</option>
             <option value="Pursuing">Pursuing</option>
           </select>
@@ -179,6 +180,9 @@ const RegisterTutor = () => {
               setModeOfTeaching(e.target.value);
             }}
           >
+            <option value="" selected disabled hidden>
+              Mode of Teaching
+            </option>
             <option value="Online">Online</option>
             <option value="Offline">Offline</option>
           </select>
@@ -191,6 +195,9 @@ const RegisterTutor = () => {
               setLanguage(e.target.value);
             }}
           >
+            <option value="" selected disabled hidden>
+              Language
+            </option>
             <option value="Hindi">Hindi</option>
             <option value="English">English</option>
             <option value="Both">Both</option>
@@ -207,6 +214,9 @@ const RegisterTutor = () => {
               setClassId(e.target.value);
             }}
           >
+            <option value="" selected disabled hidden>
+              Class
+            </option>
             {classes.map(({ _id, name }) => (
               <option value={_id}>{name}</option>
             ))}
@@ -220,6 +230,9 @@ const RegisterTutor = () => {
               setSubjectId(e.target.value);
             }}
           >
+            <option value="" selected disabled hidden>
+              Subject
+            </option>
             {subjects.map(({ _id, name }) => (
               <option value={_id}>{name}</option>
             ))}
@@ -235,6 +248,9 @@ const RegisterTutor = () => {
               setBoardId(e.target.value);
             }}
           >
+            <option value="" selected disabled hidden>
+              Board
+            </option>
             {boards.map(({ _id, name }) => (
               <option value={_id}>{name}</option>
             ))}
@@ -250,6 +266,7 @@ const RegisterTutor = () => {
               setTiming(e.target.value);
             }}
           >
+            <option value="">Timing</option>
             {timings.map((timing) => (
               <option value={timing}>{timing}</option>
             ))}
@@ -263,6 +280,9 @@ const RegisterTutor = () => {
               setOccupation(e.target.value);
             }}
           >
+            <option value="" selected disabled hidden>
+              Occupation
+            </option>
             {occupations.map((occupation) => (
               <option value={occupation}>{occupation}</option>
             ))}
