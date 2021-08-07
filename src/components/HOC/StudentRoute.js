@@ -15,7 +15,7 @@ const StudentRoute = ({ component: Component, ...rest }) => {
             return <Component {...props} />;
           } else {
             if (role === "tutor") {
-              return <Redirect to={`/s/${_id}`} />;
+              return <Redirect to={`/t/${_id}`} />;
             }
             if (role === "admin") {
               return <Redirect to={`/a/${_id}`} />;

@@ -8,9 +8,9 @@ const TutorRoute = ({ component: Component, ...rest }) => {
       component={(props) => {
         const token = localStorage.getItem("token");
 
-        const { _id, role } = JSON.parse(localStorage.getItem("user"));
-
         if (token) {
+          const { _id, role } = JSON.parse(localStorage.getItem("user"));
+
           if (role === "tutor") {
             return <Component {...props} />;
           } else {

@@ -87,9 +87,9 @@ const RegisterStudent = () => {
                 id={name}
                 value={_id}
                 onChange={(e) => setClassId(e.target.value)}
-                autocomplete="off"
+                autoComplete="off"
               />
-              <label className="w-50 btn btn-outline-primary" for={name}>
+              <label className="w-50 btn btn-outline-primary" htmlFor={name}>
                 {name}
               </label>
             </div>
@@ -111,9 +111,9 @@ const RegisterStudent = () => {
                 id={name}
                 value={_id}
                 onChange={(e) => setBoardId(e.target.value)}
-                autocomplete="off"
+                autoComplete="off"
               />
-              <label className="w-50 btn btn-outline-primary" for={name}>
+              <label className="w-50 btn btn-outline-primary" htmlFor={name}>
                 {name}
               </label>
             </div>
@@ -135,9 +135,9 @@ const RegisterStudent = () => {
                 id={name}
                 value={_id}
                 onChange={(e) => setStreamId(e.target.value)}
-                autocomplete="off"
+                autoComplete="off"
               />
-              <label className="w-50 btn btn-outline-primary" for={name}>
+              <label className="w-50 btn btn-outline-primary" htmlFor={name}>
                 {name}
               </label>
             </div>

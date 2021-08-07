@@ -109,8 +109,10 @@ const RegisterTutor = () => {
       if (res.status === 201) {
         localStorage.setItem("Tutor", JSON.stringify(res.data));
         setRedirectToDashBoard(true);
-      } else {
+      }
+      if (res.status === 400) {
         setMessage(res.data.message);
+        console.log("Message", message);
       }
     } catch (error) {
       console.log(error);
@@ -131,9 +133,11 @@ const RegisterTutor = () => {
   }
   return (
     <div className="w-50 h-60v d-flex flex-column  justify-content-evenly  p-4 text-center m-auto bg-success marginTop-10">
+      {message && <h1 className="text-center text-danger">{message}</h1>}
       <div className="row justify-content-around ">
         <div className="col-sm-6">
           <select
+            required
             value={qualification}
             className="w-100 px-4 py-2"
             onChange={(e) => {
@@ -150,6 +154,7 @@ const RegisterTutor = () => {
         </div>
         <div className="col-sm-6">
           <select
+            required
             value={status}
             className="w-100 px-4 py-2"
             onChange={(e) => {
@@ -167,6 +172,7 @@ const RegisterTutor = () => {
       <div className="row justify-content-around">
         <div className="col-sm-12">
           <input
+            required={true}
             type="text"
             className="w-100 px-4 py-2"
             value={college}
@@ -180,6 +186,7 @@ const RegisterTutor = () => {
       <div className="row justify-content-around">
         <div className="col-sm-6">
           <select
+            required
             value={modeOfTeaching}
             className="w-100 px-4 py-2"
             onChange={(e) => {
@@ -195,6 +202,7 @@ const RegisterTutor = () => {
         </div>
         <div className="col-sm-6">
           <select
+            required
             value={language}
             className="w-100 px-4 py-2"
             onChange={(e) => {
@@ -214,6 +222,7 @@ const RegisterTutor = () => {
       <div className="row justify-content-around">
         <div className="col-sm-6">
           <select
+            required
             value={classId}
             className="w-100 px-4 py-2"
             onChange={(e) => {
@@ -230,6 +239,7 @@ const RegisterTutor = () => {
         </div>
         <div className="col-sm-6">
           <select
+            required={true}
             value={subjectId}
             className="w-100 px-4 py-2"
             onChange={(e) => {
@@ -248,6 +258,7 @@ const RegisterTutor = () => {
       <div className="row justify-content-around">
         <div className="col-sm-12">
           <select
+            required
             value={boardId}
             className="w-100 px-4 py-2"
             onChange={(e) => {
@@ -266,6 +277,7 @@ const RegisterTutor = () => {
       <div className="row justify-content-around">
         <div className="col-sm-6">
           <select
+            required
             value={timing}
             className="w-100 px-4 py-2"
             onChange={(e) => {
@@ -280,6 +292,7 @@ const RegisterTutor = () => {
         </div>
         <div className="col-sm-6">
           <select
+            required
             value={occupation}
             className="w-100 px-4 py-2"
             onChange={(e) => {

@@ -8,7 +8,7 @@ const Register = () => {
   const [lastName, setLastName] = useState("");
   const [fatherFirstName, setFatherFirstName] = useState("");
   const [fatherLastName, setFatherLastName] = useState("");
-  const [gender, setGender] = useState("Male");
+  const [gender, setGender] = useState("");
   const [dateOfBirth, setDateOfBirth] = useState("");
   const [email, setEmail] = useState("");
   const [address, setAddress] = useState("");
@@ -17,11 +17,11 @@ const Register = () => {
   const [message, setMessage] = useState("");
   const [redirectTo, setRedirectTo] = useState(false);
 
-  const mobile = localStorage.getItem("token");
+  const mobile = localStorage.getItem("mobile");
 
   const registerUser = async (event, role) => {
     const userData = {
-      mobile: parseInt(mobile),
+      mobile,
       firstName,
       lastName,
       fatherFirstName,
@@ -46,6 +46,7 @@ const Register = () => {
         const { token, user } = res.data;
         localStorage.setItem("token", token);
         localStorage.setItem("user", JSON.stringify(user));
+        localStorage.removeItem("mobileAuthToken");
         setRedirectTo(true);
         console.log("RedirectTO", redirectTo);
       } else {
@@ -132,9 +133,7 @@ const Register = () => {
             <option value="Gender" hidden={true}>
               Gender
             </option>
-            <option value="Male" onChange>
-              Male
-            </option>
+            <option value="Male">Male</option>
             <option value="Female">Female</option>
             <option value="Other">Other</option>
           </select>
